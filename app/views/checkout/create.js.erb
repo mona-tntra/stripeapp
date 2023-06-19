@@ -1,0 +1,21 @@
+const stripe = Stripe("<%= Rails.application.credentials.stripe_publish_key %>");
+console.log('Before redirectToCheckout');
+<% debugger %>
+
+stripe.redirectToCheckout({
+    sessionId: '<%= @session.id %>'
+  }).then(function(result) {
+  console.log('Inside then');
+  if (result.error) {
+    // Handle any errors during the checkout process
+    var errorMessage = result.error.message;
+    console.log('Error:', errorMessage);
+    // Display the error message in a popup or any other desired way
+    alert(errorMessage);
+  } else {
+    // Display a success message or perform any other actions upon successful checkout
+    console.log('Payment successful!');
+
+    alert('Payment successful!');
+  }
+});
