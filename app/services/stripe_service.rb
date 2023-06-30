@@ -23,7 +23,7 @@ class StripeService
         quantity: 1,
       }],
       mode: 'payment',
-      success_url: root_url( host: 'localhost', port: 3000 ),
+      success_url: "#{root_url( host: 'localhost', port: 3000 )}checkout/execute",
       cancel_url: root_url( host: 'localhost', port: 3000 ),
     })
   end

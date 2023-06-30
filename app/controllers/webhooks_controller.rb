@@ -1,6 +1,7 @@
 class WebhooksController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:stripe]
+  skip_before_action :verify_authenticity_token, only: [:paypal]
   protect_from_forgery with: :null_session
+  require 'paypal-sdk-rest'
 
   def stripe
     payload = request.body.read
@@ -10,7 +11,7 @@ class WebhooksController < ApplicationController
     render json: {message: message}
   end
 
-  def paypal
+ def paypal
     request.body.rewind
     payload = request.body.read
 
@@ -22,8 +23,8 @@ class WebhooksController < ApplicationController
       # Invalid payload
       return render :nothing => true, :status => 400
     end
-    service_obj = PaypalService.new(nil, nil, nil, nil, nil, event)
+    service_obj = PaypalService.new(nil, nil, nil, event)
     message = service_obj.handle_paypal_event
     render json: {message: message}
-  end
-end
+  end 
+end 

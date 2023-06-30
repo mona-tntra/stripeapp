@@ -12,4 +12,7 @@ class CheckoutController < ApplicationController
     redirect_to @session.url
     # render json: {message: 'akjsdjfjlkjds'}
   end
+
+  def execute
+  end
 end

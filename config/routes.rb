@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :products
   root 'products#index'
   post "checkout/create", to: "checkout#create"
+  get "checkout/execute", to: "checkout#execute"
   post 'webhooks/stripe', to: 'webhooks#stripe'
   post 'webhooks/paypal', to: 'webhooks#paypal'
 

@@ -1,14 +1,13 @@
 class PaypalPaymentController < ApplicationController
   def create
     product = Product.find(params[:id])
-    user = User.second
-    service_obj = PaypalService.new(product, user, request.base_url, nil, nil, nil)
+    service_obj = PaypalService.new(product, nil, nil, nil)
     redirect_url = service_obj.create_paypal_payment
     redirect_to redirect_url
   end
 
   def execute
-    service_obj = PaypalService.new(nil, nil, nil, params[:paymentId], params[:PayerID], nil)
+    service_obj = PaypalService.new(nil, params[:paymentId], params[:PayerID], nil)
     payment_result = service_obj.execute_paypal_payment
     if payment_result[:success]
       flash[:success] = payment_result[:message]
